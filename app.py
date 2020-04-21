@@ -26,7 +26,7 @@ def index():
             if not query:
                 countrylist = sorted(value, key=lambda colonnes: colonnes['TotalConfirmed'],reverse = True)
             else :
-                filterlist = [val for val in value if query in val['Country']]
+                filterlist = [val for val in value if query.capitalize() in val['Country']]
                 countrylist = sorted(filterlist, key=lambda colonnes: colonnes['TotalConfirmed'],reverse = True)
 
         deathstat = calcul(covidglobal['TotalDeaths'],covidglobal['TotalConfirmed'])
@@ -42,7 +42,19 @@ def index():
 
 @app.route("/search")
 def search():
-
+    for key,value in covid.items():
+        if key == "Countries":
+            for val in value:
+                stat = calcul(val['TotalConfirmed'],covidglobal['TotalConfirmed'])
+                val['stats']=stat
+            
+            query = request.args.get('country')
+            if not query:
+                countrylist = sorted(value, key=lambda colonnes: colonnes['TotalConfirmed'],reverse = True)
+            else :
+                filterlist = [val for val in value if query.capitalize() in val['Country']]
+                countrylist = sorted(filterlist, key=lambda colonnes: colonnes['TotalConfirmed'],reverse = True)
+                
     return render_template('index.html', covidglobal=covidglobal, countrylist=countrylist, globalstats=globalstats)
 
 
