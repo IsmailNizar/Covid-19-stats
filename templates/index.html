@@ -1,0 +1,225 @@
+{% extends "header-footer.html" %}
+  {% block container %}
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            <input class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="button" onclick='window.location.reload(false)' value="Refresh"/>
+          </div>
+
+          <!-- Content Row : Global stats -->
+                <div class="row">
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Confirmed</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{covidglobal['TotalConfirmed']}}</div>
+                            </div>
+                            <div class="col-auto">
+                            <i class="fas fa-check-circle fa-2x text-primary"></i>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-success shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success  text-uppercase mb-1">Total Recovered</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{covidglobal['TotalRecovered']}}</div>
+                                </div>
+                                <div class="col-auto">
+                                  <i class="fas fa-heartbeat fa-2x text-success"></i>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                    </div>
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                      <div class="card border-left-danger shadow h-100 py-2">
+                          <div class="card-body">
+                          <div class="row no-gutters align-items-center">
+                              <div class="col mr-2">
+                              <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Total Deaths</div>
+                              <div class="h5 mb-0 font-weight-bold text-gray-800">{{covidglobal['TotalDeaths']}}</div>
+                              </div>
+                              <div class="col-auto">
+                              <i class="fas fas fa-exclamation-circle fa-2x text-danger"></i>
+                              </div>
+                          </div>
+                          </div>
+                      </div>
+                      </div>
+
+                    <!-- Pending Requests Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-info shadow h-100 py-2">
+                        <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Still Sick</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{covidglobal['still']}}</div>
+                            </div>
+                            <div class="col-auto">
+                            <i class="fas fa-spinner fa-spin fa-2x text-info"></i>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+          <!-- Content Row -->
+
+          <div class="row">
+
+            <!-- Area Chart -->
+            <div class="col-xl-8 col-lg-7">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Coronavirus Total Cases</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-chart-line fa-md fa-fw text-primary"></i>
+                    </a>
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pie Chart -->
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Statistics Charts </h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-chart-pie fa-md fa-fw text-primary"></i>
+                    </a>
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                    <canvas id="myPieChart"></canvas>
+                  </div>
+                  <div class="mt-4 text-center small">
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-danger" ></i> Death
+                    </span>
+                      <input type="text" id="covid-death" value="{{globalstats['deathstat']}}" hidden>
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-success" ></i> Recovered
+                    </span>
+                      <input type="text" id="covid-recovered" value="{{globalstats['recoveredstat']}}" hidden>
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-info" ></i> Still Sick
+                    </span>
+                      <input type="text" id="covid-still" value="{{globalstats['stillstat']}}" hidden>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>   
+          
+          <!-- Content Row -->
+          <div class="row">
+
+            <!-- Content Column -->
+            <div class="col-lg-6 mb-4">
+
+              <!-- All Countries stats -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <!-- Topbar Search -->
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="{{ url_for('search') }}" method="get" accept-charset="utf-8">
+                      <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" name="country">
+                        <div class="input-group-append">
+                          <button class="btn btn-primary" type="button">
+                            <i class="fas fa-search fa-sm"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+                    <div class="card-body">
+                          {% for a in countrylist %}
+                              <a href="{{ url_for('countrystats', countryname=a['Country']) }}"><h4 class="small font-weight-bold">{{a['Country']}}<span class="float-right">{{a['TotalConfirmed']}}</span></h4>
+                              <div class="progress mb-4">
+                                <div class="progress-bar bg-info text-dark" role="progressbar" style="width: {{a['stats']}}%" aria-valuenow="{{a['stats']}}" aria-valuemin="10" aria-valuemax="100">{% print "%.2f" % (a['stats']) %}% of TotalConfirmed</div>
+                              </div></a>
+                          {% endfor %}
+                    </div>
+              </div>
+
+            </div>
+            
+            <div class="col-lg-6 mb-4">
+
+              <!-- How to avoid Corona Virus ! -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">How to avoid Corona Virus !</h6>
+                </div>
+                <div class="card-body">
+                  <div class="text-center">
+                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 35rem;" src="../static/img/covid.png" alt="">
+                  </div>
+                  <a target="_blank" rel="nofollow" href="https://www.dshs.texas.gov/coronavirus/">Check more... &rarr;</a>
+                </div>
+              </div>
+
+              <!-- About CORONAVIRUS -->
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">About CORONAVIRUS</h6>
+                </div>
+                <div class="card-body">
+                  <h3 class="text-info">What is a coronavirus?</h3>
+                  <p class="mb-0">Coronaviruses are a large family of viruses that are known to cause illness ranging from the common cold to
+                  more severe diseases such as Middle East Respiratory Syndrome (MERS) and Severe Acute Respiratory Syndrome (SARS).</p>
+                  <h3 class="text-info">What is a novel coronavirus?</h3>
+                  <p class="mb-0">A novel coronavirus (CoV) is a new strain of coronavirus that has not been previously identified in humans.</p>
+                  <h3 class="text-info">What are the symptoms of someone infected with a coronavirus?</h3>
+                  <p class="mb-0">It depends on the virus, but common signs include respiratory symptoms, fever, cough, shortness of breath, and breathing difficulties.In more severe cases, infection can cause pneumonia, severe acute respiratory syndrome, kidney failure and even death.</p>
+                  <h3 class="text-info">Can coronaviruses be transmitted from person to person?</h3>
+                  <p class="mb-0">Yes, some coronaviruses can be transmitted from person to person, usually after close contact with an infected patient, for example, in a household workplace, or health care centre.</p>
+                  <h3 class="text-info">Is there a vaccine for a novel coronavirus?</h3>
+                  <p class="mb-0">When a disease is new, there is no vaccine until one is developed. It can take a number of years for a new vaccine to be developed.</p>
+                  <h3 class="text-info">What can I do to protect myself?</h3>
+                  <p class="mb-0">Standard recommendations to reduce exposure to and transmission of a range of illnesses include maintaining basic hand and respiratory hygiene, and safe food practices  and avoiding close contact, when possible, with anyone showing symptoms of respiratory illness such as coughing and sneezing.</p>
+                  
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+  {% endblock %}    
+      
