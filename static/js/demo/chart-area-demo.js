@@ -32,7 +32,7 @@ var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["22Jan", "30Jan", "10Feb", "20Feb", "29Feb", "10Mar", "20Mar", "31Mar", "10Apr", "15Apr"],
+    labels: totaldates_ChartArea,
     datasets: [{
       label: "Total Confirmed",
       lineTension: 0.3,
@@ -46,7 +46,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [ 580, 9823, 43099, 76677, 86040, 118948, 275680, 859798, 1698881, 2086332],
+      data: totalcases_ChartArea,
     }],
   },
   options: {
@@ -69,12 +69,12 @@ var myLineChart = new Chart(ctx, {
           drawBorder: false
         },
         ticks: {
-          maxTicksLimit: 10
+          maxTicksLimit: totaldates_ChartArea.length
         }
       }],
       yAxes: [{
         ticks: {
-          maxTicksLimit: 15,
+          maxTicksLimit: totalcases_ChartArea.length,
           padding: 10,
           // Include a dollar sign in the ticks
           callback: function(value, index, values) {

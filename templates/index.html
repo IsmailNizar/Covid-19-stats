@@ -1,5 +1,18 @@
 {% extends "header-footer.html" %}
   {% block container %}
+  <script>
+    console.log("{{totalcases}}");
+    console.log("{{totaldates}}");
+    var totaldates_ChartArea = {{ totaldates|tojson }};
+    var totalcases_ChartArea = {{ totalcases|tojson }};
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const product = urlParams.get('error');
+    if (urlParams.has('error')){
+      alert("We've run into an issue. Please try again !");
+    }
+
+  </script>
     <img src="https://covid19-statss.herokuapp.com/pixel.gif?page=index.html" style="width: 1px; height: 1px" />
 
         <!-- Begin Page Content -->

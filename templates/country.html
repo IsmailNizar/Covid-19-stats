@@ -5,7 +5,7 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{statistics['Country']}} : {{statistics['Date']}}</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{statistics['Country']}} : {{statistics['Dates']}}</h1>
             <input class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" type="button" onclick='window.location.reload(false)' value="Refresh"/>
           </div>
 
@@ -140,7 +140,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">{{statistics['Country']}} Total Cases</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">{{statistics['Country']}} Total Cases{{a}}</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-chart-line fa-md fa-fw text-primary"></i>
@@ -151,6 +151,10 @@
                 <div class="card-body">
                   <div class="chart-bar">
                     <canvas id="myBarChart"></canvas>
+                    <script>                    
+                      var months_ChartBar = {{ months|tojson }};
+                      var totalcases_ChartBar = {{ totalcases|tojson }};
+                    </script>
                   </div>
                 </div>
               </div>

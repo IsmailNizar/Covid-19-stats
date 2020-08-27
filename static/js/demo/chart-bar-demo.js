@@ -32,13 +32,13 @@ var ctx = document.getElementById("myBarChart");
 var myBarChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["January", "February", "March", "April", "May", "June"],
+    labels: months_ChartBar,
     datasets: [{
-      label: "Revenue",
+      label: "Total Cases",
       backgroundColor: "#4e73df",
       hoverBackgroundColor: "#2e59d9",
       borderColor: "#4e73df",
-      data: [4215, 5312, 6251, 7841, 9821, 14984],
+      data: totalcases_ChartBar,
     }],
   },
   options: {
@@ -61,20 +61,20 @@ var myBarChart = new Chart(ctx, {
           drawBorder: false
         },
         ticks: {
-          maxTicksLimit: 6
+          maxTicksLimit: months_ChartBar.length
         },
         maxBarThickness: 25,
       }],
       yAxes: [{
         ticks: {
           min: 0,
-          max: 15000,
-          maxTicksLimit: 5,
-          padding: 10,
+          max: totalcases_ChartBar[totalcases_ChartBar.length -1],
+          maxTicksLimit: totalcases_ChartBar.length,
+          padding: 20,
           // Include a dollar sign in the ticks
-          callback: function(value, index, values) {
-            return '$' + number_format(value);
-          }
+          // callback: function(value, index, values) {
+          //   return '$' + number_format(value);
+          // }
         },
         gridLines: {
           color: "rgb(234, 236, 244)",
@@ -90,7 +90,7 @@ var myBarChart = new Chart(ctx, {
     },
     tooltips: {
       titleMarginBottom: 10,
-      titleFontColor: '#6e707e',
+      titleFontColor: '#e74a3b',
       titleFontSize: 14,
       backgroundColor: "rgb(255,255,255)",
       bodyFontColor: "#858796",
@@ -103,7 +103,7 @@ var myBarChart = new Chart(ctx, {
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+          return datasetLabel + ': ' + number_format(tooltipItem.yLabel);
         }
       }
     },
